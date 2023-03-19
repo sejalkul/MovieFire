@@ -17,6 +17,15 @@ const Signup = () => {
       navigate('/account')
     } catch (e) {
       setError(e.message);
+      if(e.message=="Firebase: Error (auth/email-already-in-use)."){
+        var error = document.getElementById("err")
+        error.innerHTML = "<span style='color: red;'>"+
+                        "Account already created with this email id.</span>"
+        
+      }
+      else {
+        error.innerHTML = ""
+      }
       console.log(e.message);
     }
   };
@@ -34,6 +43,7 @@ const Signup = () => {
       </div>
       <form onSubmit={handleSubmit}>
         <div className='flex flex-col py-2'>
+          <span id="err" style={{color: "red "}}></span>
           <label className='py-2 font-medium'>Email Address</label>
           <input
             onChange={(e) => setEmail(e.target.value)}
